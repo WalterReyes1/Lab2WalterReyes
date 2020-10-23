@@ -6,7 +6,7 @@ public class Casos {
     private String lugar;
     private String descripcion;
     private String tipo;
-    private int detective;
+    private String detective;
     private String estado;
     
     // constructores;
@@ -15,7 +15,7 @@ public class Casos {
         
     }
     
-    public Casos(String lugar,String descripcion,String tipo,int detective,String estado){
+    public Casos(String lugar,String descripcion,String tipo,String detective,String estado){
      this.lugar = lugar;
      this.descripcion  = descripcion;
      this.tipo = tipo;
@@ -49,11 +49,11 @@ public class Casos {
         this.tipo = tipo;
     }
 
-    public int getDetective() {
+    public String getDetective() {
         return detective;
     }
 
-    public void setDetective(int detective) {
+    public void setDetective(String detective) {
         this.detective = detective;
     }
 
@@ -68,7 +68,7 @@ public class Casos {
     
     @Override
     public String toString(){
-     return "Lugar : "+lugar+" Descripción: "+descripcion+" Tipo: "+tipo+" Dectectivo a cargo: "+detective+
+     return "Lugar : "+lugar+" Descripción: "+descripcion+" Tipo: "+tipo+" Dectective a cargo: "+detective+
         " Estado:  "+estado+"\n";
     }
     
