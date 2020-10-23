@@ -63,6 +63,7 @@ public Dectectives(String nombre,int edad, String nacionalidad,int años, int ni
     public void setNivel(int nivel) {
         this.nivel = nivel;
     }
+    
         // MA
 @Override
     public String toString(){
