@@ -15,7 +15,7 @@ public class Lab2_WalterReyes {
 
     public static void main(String[] args) {
         int opcion = 0;
-        while (opcion != 9) {
+        while (opcion != 10) {
             System.out.println("Sistema");
             System.out.println("1-Agregar detectives");
             System.out.println("2-Eliminar detectives");
@@ -26,7 +26,7 @@ public class Lab2_WalterReyes {
             System.out.println("7-Listar casos");
             System.out.println("8-Listar casos resueltos");
             System.out.println("9-listar casos pendientes");
-            System.out.println("9-Salir");
+            System.out.println("10-Salir");
             System.out.print("Ingrese una opción: ");
             opcion = lectura.nextInt();
             switch (opcion) {
@@ -80,12 +80,13 @@ public class Lab2_WalterReyes {
                     }
                     System.out.println(salida);
 
-                    int p = 0;
+                    int p;
                     do {
                         System.out.print("Posicion a Modificar: ");
                         p = lectura.nextInt();
-                    } while (p > detectives.size() || p < detectives.size());
-                    System.out.println("Que deseas modificar? 1-nombre\n 2-edad\n 3- nacionalidad \n 4- Años en labores \n 5-calificación");
+                    } while (p > detectives.size() || p < 0);
+
+                    System.out.println("Que deseas modificar? \n 1-nombre\n 2-edad\n 3- nacionalidad \n 4- Años en labores \n 5-calificación");
                     int op = lectura.nextInt();
                     if (op == 1) {
                         System.out.print("Nombre de detective: ");
@@ -98,29 +99,28 @@ public class Lab2_WalterReyes {
                         ((Dectectives) detectives.get(p)).setEdad(edad);
 
                     }
-                    if(op == 3){
-                    System.out.print("Nacionalidad: ");
-                    String nacionalidad = lectura.next();
-                    ((Dectectives) detectives.get(p)).setNacionalidad(nacionalidad);
-    
-                    }
-                    if(op==4){
-                    System.out.print("Años en labores: ");
-                    int años = lectura.nextInt();
-                    ((Dectectives) detectives.get(p)).setAños(años);
+                    if (op == 3) {
+                        System.out.print("Nacionalidad: ");
+                        String nacionalidad = lectura.next();
+                        ((Dectectives) detectives.get(p)).setNacionalidad(nacionalidad);
 
                     }
-                    if(op == 5){
-                    int calidad = 0;
-                    do {
-                        System.out.println("Ingrese valor de detective (1-10): ");
-                        calidad = lectura.nextInt();
-                    } while (calidad > 10 || calidad < 0);
-                    ((Dectectives) detectives.get(p)).setNivel(calidad);
-    
+                    if (op == 4) {
+                        System.out.print("Años en labores: ");
+                        int años = lectura.nextInt();
+                        ((Dectectives) detectives.get(p)).setAños(años);
+
+                    }
+                    if (op == 5) {
+                        int calidad = 0;
+                        do {
+                            System.out.println("Ingrese valor de detective (1-10): ");
+                            calidad = lectura.nextInt();
+                        } while (calidad > 10 || calidad < 0);
+                        ((Dectectives) detectives.get(p)).setNivel(calidad);
+
                     }
 
-                    
                     break;
                 }// fin caso 3
 
@@ -167,9 +167,9 @@ public class Lab2_WalterReyes {
                         System.out.println("Ingrese posición de detective a asignar: ");
                         p = lectura.nextInt();
 
-                    } while (p > detectives.size() || detectives.size() < 0);
+                    } while (p > detectives.size() || p < 0);
                     String detective;
-                   detective = ((Dectectives) detectives.get(p)).getNombre();
+                    detective = ((Dectectives) detectives.get(p)).getNombre();
 
                     int est;
                     String estado = "";
@@ -183,15 +183,15 @@ public class Lab2_WalterReyes {
                     if (est == 2) {
                         estado = "Resuelto";
                     }
-                    casos.add(new Casos(lugar, desc, tipo, p, estado));
+                    casos.add(new Casos(lugar, desc, tipo, detective, estado));
                     if (x == 1) {
-                        homicidios.add(new Casos(lugar, desc, tipo, p, estado));
+                        homicidios.add(new Casos(lugar, desc, tipo, detective, estado));
                     }
                     if (x == 2) {
-                        secuestros.add(new Casos(lugar, desc, tipo, p, estado));
+                        secuestros.add(new Casos(lugar, desc, tipo, detective, estado));
                     }
                     if (x == 3) {
-                        robos.add(new Casos(lugar, desc, tipo, p, estado));
+                        robos.add(new Casos(lugar, desc, tipo, detective, estado));
                     }
                     break;
                 }
@@ -199,60 +199,85 @@ public class Lab2_WalterReyes {
                 case 6: {
                     System.out.println("");
                     System.out.println("Modificar casos ");
-                    System.out.println("Lista de casos: ");
+
                     String salida = "";
                     for (Object t : casos) {
                         salida += casos.indexOf(t) + "- " + t + "\n";
                     }
                     System.out.println(salida);
+                    System.out.println("");
+                    System.out.println("Ingrese posición a modificar");
+                    int p = lectura.nextInt();
+                    System.out.println("Que deseas modificar? 1-lugar\n 2-descripción\n 3- tipo de caso \n 4- asignar nuevo detective \n 5-Estado");
+                    int ap = lectura.nextInt();
+                    if (ap == 1) {
+                        System.out.print("Ingrese lugar: ");
+                        String lugar = lectura.next();
+                        ((Casos) casos.get(p)).setLugar(lugar);
 
-                    System.out.println("Registrar casos ");
-                    System.out.print("Ingrese lugar: ");
-                    String lugar = lectura.next();
-                    System.out.print("Descripción: ");
-                    String desc = lectura.next();
-                    desc = lectura.next();
-                    int x = 0;
-                    String tipo = "";
-                    do {
-                        System.out.println("Tipo: 1-Homicidio \n 2-secuestro \n 3- robo: ");
-                        x = lectura.nextInt();
-                    } while (x > 3 || x < 0);
-                    if (x == 1) {
-                        tipo = "Homicidio";
                     }
-                    if (x == 2) {
-                        tipo = "Secuestro";
-                    }
-                    if (x == 3) {
-                        tipo = "Robo";
-                    }
-                    System.out.println("Lista de detectives: ");
-                    String salida1 = "";
-                    for (Object t : detectives) {
-                        salida += detectives.indexOf(t) + "- " + t + "\n";
-                    }
-                    System.out.println(salida1);
-                    int p;
-                    do {
-                        System.out.println("Ingrese posición de detective a asignar: ");
-                        p = lectura.nextInt();
+                    if (ap == 2) {
+                        System.out.print("Descripción: ");
+                        String desc = lectura.next();
+                        ((Casos) casos.get(p)).setDescripcion(desc);
 
-                    } while (p > detectives.size() || detectives.size() < 0);
+                    }
 
-                    int est;
-                    String estado = "";
-                    do {
-                        System.out.print("Estado 1- En proceso \n 2-resuelto");
-                        est = lectura.nextInt();
-                    } while (est > 2 || est < 0);
-                    if (est == 1) {
-                        estado = "En proceso";
+                    if (ap == 3) {
+                        int x = 0;
+                        String tipo = "";
+                        do {
+                            System.out.println("Tipo: 1-Homicidio \n 2-secuestro \n 3- robo: ");
+                            x = lectura.nextInt();
+                        } while (x > 3 || x < 0);
+                        if (x == 1) {
+                            tipo = "Homicidio";
+                        }
+                        if (x == 2) {
+                            tipo = "Secuestro";
+                        }
+                        if (x == 3) {
+                            tipo = "Robo";
+                        }
+                        ((Casos) casos.get(p)).setTipo(tipo);
+
                     }
-                    if (est == 2) {
-                        estado = "Resuelto";
+                    if (ap == 4) {
+                        System.out.println("Lista de detectives: ");
+                        String salida1 = "";
+                        for (Object t : detectives) {
+                            salida += detectives.indexOf(t) + "- " + t + "\n";
+                        }
+                        System.out.println(salida1);
+                        int x;
+                        do {
+                            System.out.println("Ingrese posición de detective a asignar: ");
+                            x = lectura.nextInt();
+
+                        } while (x > detectives.size() || x < 0);
+                        String detective;
+                        detective = ((Dectectives) detectives.get(p)).getNombre();
+
+                        ((Casos) casos.get(x)).setDetective(detective);
+
                     }
-                    casos.set(p, new Casos(lugar, desc, tipo, p, estado));
+                    if (ap == 5) {
+                        int est;
+                        String estado = "";
+                        do {
+                            System.out.print("Estado 1- En proceso \n 2-resuelto");
+                            est = lectura.nextInt();
+                        } while (est > 2 || est < 0);
+                        if (est == 1) {
+                            estado = "En proceso";
+                        }
+                        if (est == 2) {
+                            estado = "Resuelto";
+                        }
+                        ((Casos) casos.get(p)).setEstado(estado);
+
+                    }
+
                     break;
                 }
 
